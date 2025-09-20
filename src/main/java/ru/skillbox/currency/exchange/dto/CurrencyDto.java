@@ -20,4 +20,6 @@ public class CurrencyDto {
     private Double value;
 
     private Long isoNumCode;
+
+    private String charCode;
 }
