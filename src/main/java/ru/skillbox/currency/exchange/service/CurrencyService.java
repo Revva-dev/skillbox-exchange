@@ -8,6 +8,10 @@ import ru.skillbox.currency.exchange.entity.Currency;
 import ru.skillbox.currency.exchange.mapper.CurrencyMapper;
 import ru.skillbox.currency.exchange.repository.CurrencyRepository;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,5 +34,16 @@ public class CurrencyService {
     public CurrencyDto create(CurrencyDto dto) {
         log.info("CurrencyService method create executed");
         return  mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
+    }
+
+    public Map<String, Collection<CurrencyDto>> getALL() {
+        log.info("CurrencyService method getALL executed");
+
+        Map<String, Collection<CurrencyDto>> map = new HashMap<>();
+        map.put("currencies", repository.findAll()
+                .stream()
+                .map(mapper::convertToDto)
+                .toList());
+        return map;
     }
 }
